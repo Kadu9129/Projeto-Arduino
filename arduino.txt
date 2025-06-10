@@ -95,3 +95,111 @@ void silenciarAlarme() {
     Serial.println("Alarme Silenciado");
   }
 }
+
+
+
+
+/*
+  Projeto de Alarme IoT com Controles Avançados
+  Disciplina: Internet das Coisas
+  Descrição: Este código gerencia um alarme com sensor de luz (LDR) e laser.
+  Ele foi atualizado para receber comandos via comunicação serial para:
+  - Silenciar o alarme (D)
+  - Testar a sirene (T)
+  - Armar o sistema (A)
+  - Colocar em modo de espera (S - Standby)
+*/
+
+// --- Pinos dos componentes ---
+const int laserPino = A0;      // Pino analógico para leitura do LDR
+const int laser = 9;           // Pino para alimentar o módulo laser
+const int buzzer = 10;         // Pino do buzzer
+const int amarelo = 12;        // Pino do LED amarelo
+const int azul = 11;           // Pino do LED azul
+const int button = 8;          // Pino do botão físico de desarme
+
+// --- Variáveis de controle ---
+int limiteLuz = 200;           // Limite para detecção (ajuste conforme o ambiente)
+bool alarmeDisparado = false;  // Controla se o alarme está tocando
+bool sistemaArmado = true;     // NOVO: Controla se o sistema está monitorando
+
+void setup() {
+  // Configuração dos pinos
+  pinMode(laser, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+  pinMode(amarelo, OUTPUT);
+  pinMode(azul, OUTPUT);
+  pinMode(button, INPUT_PULLUP); // Usa o resistor de pull-up interno do Arduino
+
+  digitalWrite(laser, HIGH);    // Liga o laser permanentemente
+  Serial.begin(9600);           // Inicia a comunicação serial
+}
+
+void loop() {
+  // Verifica se há comandos chegando da interface visual
+  if (Serial.available() > 0) {
+    char command = Serial.read();
+    switch (command) {
+      case 'D': // Comando para Silenciar o alarme que está tocando
+        silenciarAlarme();
+        break;
+      case 'T': // NOVO: Comando para Testar a sirene
+        Serial.println("Testando sirene...");
+        sirene(500); // Roda a sirene por um tempo limitado para teste
+        noTone(buzzer); // Garante que o buzzer desligue ao final do teste
+        break;
+      case 'A': // NOVO: Comando para Armar o sistema
+        sistemaArmado = true;
+        Serial.println("Sistema Armado");
+        break;
+      case 'S': // NOVO: Comando para colocar em Standby (Desarmar)
+        sistemaArmado = false;
+        if(alarmeDisparado) silenciarAlarme(); // Se estiver tocando, silencia também
+        Serial.println("Sistema em Espera");
+        break;
+    }
+  }
+
+  // A lógica de detecção de invasão só funciona se o sistema estiver armado
+  if (sistemaArmado && !alarmeDisparado) {
+    int ldrValue = analogRead(laserPino);
+    if (ldrValue < limiteLuz) {
+      alarmeDisparado = true;
+      Serial.println("Invasao"); // Envia a mensagem de invasão
+    }
+  }
+
+  // Verifica o botão físico para silenciar
+  if (digitalRead(button) == LOW) {
+    silenciarAlarme();
+  }
+
+  // Se o alarme foi disparado, a sirene toca continuamente
+  if (alarmeDisparado) {
+    sirene(200);
+  } else {
+    noTone(buzzer);
+    digitalWrite(amarelo, LOW);
+    digitalWrite(azul, LOW);
+  }
+}
+
+// Função da sirene. O parâmetro 'duration' controla o delay.
+void sirene(int duration) {
+  digitalWrite(amarelo, HIGH);
+  tone(buzzer, 1000);
+  delay(duration);
+  digitalWrite(amarelo, LOW);
+  digitalWrite(azul, HIGH);
+  tone(buzzer, 800);
+  delay(duration);
+  digitalWrite(azul, LOW);
+}
+
+// Função para silenciar um alarme já disparado
+void silenciarAlarme() {
+  if (alarmeDisparado) {
+    alarmeDisparado = false;
+    Serial.println("Alarme Silenciado");
+  }
+}
