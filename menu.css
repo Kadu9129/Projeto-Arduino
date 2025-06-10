@@ -1,35 +1,78 @@
-/* Documentação: Estilização para uma interface intuitiva e clara (Critério 2). */
-body { font-family: sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px 0; }
-.container { background-color: white; padding: 20px 40px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 600px; }
-button { padding: 12px 25px; font-size: 16px; margin: 10px; cursor: pointer; border: none; border-radius: 5px; color: white; transition: background-color 0.3s; }
-#connectButton { background-color: #007bff; }
-#deactivateButton { background-color: #ffc107; color: #333; }
-#clearHistoryButton { background-color: #6c757d; }
-#status-box { padding: 20px; margin: 20px 0; border-radius: 5px; color: white; transition: background-color 0.5s; }
-.status-disconnected { background-color: #6c757d; }
-.status-safe { background-color: #28a745; }
-.status-invasion { background-color: #dc3545; animation: pulse 1s infinite; }
+body {
+  font-family: sans-serif;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px 0;
+}
+
+.container {
+  background-color: white;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 90%;
+  max-width: 600px;
+}
+
+button {
+  padding: 12px 25px;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+#botaoConectar { background-color: #007bff; }
+#botaoSilenciar { background-color: #ffc107; color: #212529; }
+#botaoLimparHistorico { background-color: #6c757d; }
+#botaoTeste { background-color: #0dcaf0; color: #212529; }
+
+#caixa-status {
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+  color: white;
+  transition: background-color 0.5s;
+}
+
+.status-desconectado { background-color: #6c757d; }
+.status-armado { background-color: #28a745; }
+.status-invasao { background-color: #dc3545; animation: pulsar 1s infinite; }
+
 .hidden { display: none; }
-.history-container { margin-top: 30px; text-align: left; }
-.table-wrapper { max-height: 200px; overflow-y: auto; border: 1px solid #ccc; margin-top: 10px; }
-table { width: 100%; border-collapse: collapse; }
-th, td { padding: 8px 12px; border-bottom: 1px solid #ddd; text-align: left; }
-th { background-color: #f2f2f2; }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); } 100% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); } }
-.btn-warning {
-    background-color: #ffc107; /* Amarelo/Laranja para atenção */
-    color: #212529;
+
+.historico { margin-top: 30px; text-align: left; }
+
+.tabela-wrapper {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  margin-top: 10px;
 }
 
-.btn-info {
-    background-color: #0dcaf0; /* Azul claro para informação */
-    color: #212529;
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-#toggleSystemButton.armed {
-    background-color: #198754; /* Verde quando armado */
+th, td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
 }
 
-#toggleSystemButton.disarmed {
-    background-color: #6c757d; /* Cinza quando desarmado */
+th {
+  background-color: #f2f2f2;
+}
+
+@keyframes pulsar {
+  0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+  100% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
 }

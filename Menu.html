@@ -7,23 +7,23 @@
 </head>
 <body>
     <div class="container">
-        <h1>Sistema de Seguraça</h1>
+        <h1>Sistema de Segurança com Sensor de Luz</h1>
 
-        <button id="connectButton">Conectar ao Arduino</button>
-        <div id="status-box" class="status-disconnected">
-            <h2>STATUS: <span id="status-text">Desconectado</span></h2>
+        <button id="botaoConectar">Conectar ao Arduino</button>
+        <div id="caixa-status" class="status-desconectado">
+            <h2>STATUS: <span id="texto-status">Desconectado</span></h2>
         </div>
 
-        <div id="controls" class="hidden">
-            <button id="toggleSystemButton">Desarmar Sistema</button>
-            <button id="silenceButton" class="btn-warning">Silenciar Alarme</button>
-            <button id="testButton" class="btn-info">Testar Sirene</button>
+        <div id="controles" class="hidden">
+            <button id="botaoAlternarSistema">Desarmar Sistema</button>
+            <button id="botaoSilenciar" class="btn-alarme">Silenciar Alarme</button>
+            <button id="botaoTeste" class="btn-info">Testar Sirene</button>
         </div>
 
-        <div class="history-container">
+        <div class="historico">
             <h3>Histórico de Eventos</h3>
-            <div class="table-wrapper">
-                <table id="historyTable">
+            <div class="tabela-wrapper">
+                <table id="tabelaHistorico">
                     <thead>
                         <tr>
                             <th>Evento</th>
@@ -33,7 +33,7 @@
                     <tbody></tbody>
                 </table>
             </div>
-            <button id="clearHistoryButton">Limpar Histórico</button>
+            <button id="botaoLimparHistorico">Limpar Histórico</button>
         </div>
     </div>
     <script src="menu.js"></script>
