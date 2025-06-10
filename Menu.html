@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel de Controle - Alarme IoT</title>
+    <link rel="stylesheet" href="menu.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sistema de Seguraça</h1>
+
+        <button id="connectButton">Conectar ao Arduino</button>
+        <div id="status-box" class="status-disconnected">
+            <h2>STATUS: <span id="status-text">Desconectado</span></h2>
+        </div>
+
+        <div id="controls" class="hidden">
+            <button id="toggleSystemButton">Desarmar Sistema</button>
+            <button id="silenceButton" class="btn-warning">Silenciar Alarme</button>
+            <button id="testButton" class="btn-info">Testar Sirene</button>
+        </div>
+
+        <div class="history-container">
+            <h3>Histórico de Eventos</h3>
+            <div class="table-wrapper">
+                <table id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Evento</th>
+                            <th>Data e Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <button id="clearHistoryButton">Limpar Histórico</button>
+        </div>
+    </div>
+    <script src="menu.js"></script>
+</body>
+</html>
